@@ -57,8 +57,12 @@ public class HomeTimeLineActivity extends AppCompatActivity {
                         HomeTimeLineModel homeTimeLineModel = new HomeTimeLineModel();
                         JSONObject jsonObject = response.optJSONObject(i);
                         if(jsonObject.has("user") && !jsonObject.isNull("user")){
-                            homeTimeLineModel.setScreenName(jsonObject.getJSONObject("user").getString("screen_name"));
-                            homeTimeLineModel.setUserName(jsonObject.getJSONObject("user").getString("name"));
+                            JSONObject userJSONObj = jsonObject.getJSONObject("user");
+                            homeTimeLineModel.setScreenName(userJSONObj.getString("screen_name"));
+                            homeTimeLineModel.setUserName(userJSONObj.getString("name"));
+                            if(userJSONObj.has("profile_image_url") && !userJSONObj.isNull("profile_image_url")) {
+                                homeTimeLineModel.setUserProfileUrl(userJSONObj.getString("profile_image_url"));
+                            }
                         }
                         if(jsonObject.has("text") && !jsonObject.isNull("text")){
                             homeTimeLineModel.setTwitterText(jsonObject.getString("text"));
@@ -66,8 +70,8 @@ public class HomeTimeLineActivity extends AppCompatActivity {
                         if(jsonObject.has("favourites_count") && !jsonObject.isNull("favourites_count")) {
                             homeTimeLineModel.setFavCount(jsonObject.getInt("favourites_count"));
                         }
-                        if(jsonObject.has("profile_image_url") && !jsonObject.isNull("profile_image_url")) {
-                            homeTimeLineModel.setUserProfileUrl(jsonObject.getString("profile_image_url"));
+                        if(jsonObject.has("retweet_count") && !jsonObject.isNull("retweet_count")) {
+                            homeTimeLineModel.setReTweetCount(jsonObject.getInt("retweet_count"));
                         }
                         homeTimeLineModelArrayList.add(i,homeTimeLineModel);
                     } catch (Exception e) {

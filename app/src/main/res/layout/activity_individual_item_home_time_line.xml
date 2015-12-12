@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:id ="@+id/individual_item_home_timeline">
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id ="@+id/iv_user_image"/>
     <TextView
         android:layout_width="match_parent"
@@ -19,4 +23,43 @@
         android:id="@+id/tv_twitter_text"
         android:layout_below="@id/iv_user_image"
         android:text="twitter text"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_user_name"
+        android:id="@+id/iv_twitter_reply"
+        android:layout_below="@id/tv_twitter_text"
+        android:src="@drawable/twitter_reply"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_twitter_reply"
+        android:layout_alignTop="@id/iv_twitter_reply"
+        android:paddingLeft="90dp"
+        android:id="@+id/iv_retweet"
+        android:src="@drawable/retweet"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/tv_retweet_cnt"
+        android:layout_alignTop="@id/iv_retweet"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@id/iv_retweet"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="90dp"
+        android:id="@+id/iv_favourites"
+        android:layout_alignTop="@id/tv_retweet_cnt"
+        android:layout_toRightOf="@id/tv_retweet_cnt"
+        android:src="@drawable/favourites"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:id="@+id/tv_favourites"
+        android:layout_alignTop="@id/iv_favourites"
+        android:layout_toRightOf="@id/iv_favourites"
+        android:text=""/>
 </RelativeLayout>
