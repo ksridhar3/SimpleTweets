@@ -4,5 +4,6 @@
     <string name="app_name">Simple Tweets</string>
     <string name="login_label">Log in</string>
     <string name="home_time_line">Home</string>
+    <string name="title_activity_compose_tweet">ComposeTweet</string>
 
 </resources>
