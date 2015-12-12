@@ -1,21 +1,14 @@
 package com.codepath.apps.simpletweets.activities;
 
-import android.app.ActionBar;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
 import com.codepath.apps.simpletweets.R;
-import com.codepath.apps.simpletweets.TwitterClient;
+import com.codepath.apps.simpletweets.network.TwitterClient;
 import com.codepath.apps.simpletweets.adapters.HomeTimeLineAdapter;
 import com.codepath.apps.simpletweets.models.HomeTimeLineModel;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -63,13 +56,17 @@ public class HomeTimeLineActivity extends AppCompatActivity {
                             if(userJSONObj.has("profile_image_url") && !userJSONObj.isNull("profile_image_url")) {
                                 homeTimeLineModel.setUserProfileUrl(userJSONObj.getString("profile_image_url"));
                             }
+                            if(userJSONObj.has("created_at") && !userJSONObj.isNull("created_at")) {
+                                homeTimeLineModel.setCreatedAt(userJSONObj.getString("created_at"));
+                            }
+                            if(userJSONObj.has("favourites_count") && !userJSONObj.isNull("favourites_count")) {
+                                homeTimeLineModel.setFavCount(jsonObject.getInt("favourites_count"));
+                            }
                         }
                         if(jsonObject.has("text") && !jsonObject.isNull("text")){
                             homeTimeLineModel.setTwitterText(jsonObject.getString("text"));
                         }
-                        if(jsonObject.has("favourites_count") && !jsonObject.isNull("favourites_count")) {
-                            homeTimeLineModel.setFavCount(jsonObject.getInt("favourites_count"));
-                        }
+
                         if(jsonObject.has("retweet_count") && !jsonObject.isNull("retweet_count")) {
                             homeTimeLineModel.setReTweetCount(jsonObject.getInt("retweet_count"));
                         }
@@ -83,7 +80,7 @@ public class HomeTimeLineActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d(TAG,"onFailure received");
+                Log.d(TAG, "onFailure received");
             }
         });
     }

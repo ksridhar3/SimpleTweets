@@ -11,11 +11,10 @@
         android:layout_height="50dp"
         android:id ="@+id/iv_user_image"/>
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_user_name"
         android:layout_toRightOf="@id/iv_user_image"
-        android:layout_toEndOf="@id/iv_user_image"
         android:text="username"/>
     <TextView
         android:layout_width="match_parent"
@@ -62,4 +61,15 @@
         android:layout_alignTop="@id/iv_favourites"
         android:layout_toRightOf="@id/iv_favourites"
         android:text=""/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dp"
+        android:id="@+id/tv_date"
+        android:layout_toRightOf="@id/iv_favourites"
+        android:layout_alignTop="@id/tv_user_name"
+        android:layout_alignBottom="@id/tv_user_name"
+        android:text="27"
+        />
+
 </RelativeLayout>

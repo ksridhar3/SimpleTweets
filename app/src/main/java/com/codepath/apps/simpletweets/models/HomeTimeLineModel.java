@@ -13,6 +13,7 @@ public class HomeTimeLineModel {
     private String twitterText;
     private Integer reTweetCount;
     private Integer favCount;
+    private String createdAt;
 
     public HomeTimeLineModel() {
         screenName = "";
@@ -50,6 +51,10 @@ public class HomeTimeLineModel {
         return favCount;
     }
 
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -76,5 +81,9 @@ public class HomeTimeLineModel {
 
     public void setFavCount(Integer favCount) {
         this.favCount = favCount;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }
