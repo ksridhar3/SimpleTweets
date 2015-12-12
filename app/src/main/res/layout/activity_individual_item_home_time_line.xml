@@ -20,8 +20,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
         android:id="@+id/tv_twitter_text"
         android:layout_below="@id/iv_user_image"
+        android:layout_alignLeft="@id/tv_user_name"
         android:paddingBottom="10dp"
         android:text="twitter text"/>
     <ImageView

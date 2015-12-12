@@ -49,9 +49,7 @@
         <activity
             android:name=".activities.HomeTimeLineActivity"
             android:label="@string/home_time_line" />
-        <activity
-            android:name=".activities.ComposeTweetActivity">
-        </activity>
+        <activity android:name=".activities.ComposeTweetActivity"></activity>
     </application>
 
 </manifest>

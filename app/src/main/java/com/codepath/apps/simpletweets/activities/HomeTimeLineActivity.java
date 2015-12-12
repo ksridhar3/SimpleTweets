@@ -1,8 +1,11 @@
 package com.codepath.apps.simpletweets.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.codepath.apps.simpletweets.R;
@@ -37,7 +40,30 @@ public class HomeTimeLineActivity extends AppCompatActivity {
         lvHomeTimeLine.setAdapter(homeTimeLineAdapter);
         twitterClient = new TwitterClient(this);
         populateHomeTimeLine();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_white_twitter_bird);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_home_time_line_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.mi_compose:
+                Intent i = new Intent(this,ComposeTweetActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void populateHomeTimeLine() {
@@ -89,6 +115,6 @@ public class HomeTimeLineActivity extends AppCompatActivity {
             }
         });
     }
-    
+
 
 }
