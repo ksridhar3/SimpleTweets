@@ -51,23 +51,28 @@ public class HomeTimeLineActivity extends AppCompatActivity {
                         JSONObject jsonObject = response.optJSONObject(i);
                         if(jsonObject.has("user") && !jsonObject.isNull("user")){
                             JSONObject userJSONObj = jsonObject.getJSONObject("user");
-                            homeTimeLineModel.setScreenName(userJSONObj.getString("screen_name"));
-                            homeTimeLineModel.setUserName(userJSONObj.getString("name"));
+
+                            if(userJSONObj.has("screen_name") && !userJSONObj.isNull("screen_name")) {
+                                homeTimeLineModel.setScreenName(userJSONObj.getString("screen_name"));
+                            }
+                            if(userJSONObj.has("name") && !userJSONObj.isNull("name")) {
+                                homeTimeLineModel.setUserName(userJSONObj.getString("name"));
+                            }
                             if(userJSONObj.has("profile_image_url") && !userJSONObj.isNull("profile_image_url")) {
                                 homeTimeLineModel.setUserProfileUrl(userJSONObj.getString("profile_image_url"));
                             }
                             if(userJSONObj.has("created_at") && !userJSONObj.isNull("created_at")) {
                                 homeTimeLineModel.setCreatedAt(userJSONObj.getString("created_at"));
                             }
-                            if(userJSONObj.has("favourites_count") && !userJSONObj.isNull("favourites_count")) {
-                                homeTimeLineModel.setFavCount(jsonObject.getInt("favourites_count"));
+                            if(userJSONObj.has("favourites_count")) {
+                                homeTimeLineModel.setFavCount(userJSONObj.getInt("favourites_count"));
                             }
                         }
                         if(jsonObject.has("text") && !jsonObject.isNull("text")){
                             homeTimeLineModel.setTwitterText(jsonObject.getString("text"));
                         }
 
-                        if(jsonObject.has("retweet_count") && !jsonObject.isNull("retweet_count")) {
+                        if(jsonObject.has("retweet_count")) {
                             homeTimeLineModel.setReTweetCount(jsonObject.getInt("retweet_count"));
                         }
                         homeTimeLineModelArrayList.add(i,homeTimeLineModel);

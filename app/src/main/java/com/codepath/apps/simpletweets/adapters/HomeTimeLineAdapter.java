@@ -45,8 +45,8 @@ public class HomeTimeLineAdapter extends ArrayAdapter<HomeTimeLineModel>{
         tvUser.setText(timeLineModel.getUserName());
         tvTweet.setText(timeLineModel.getTwitterText());
         tvDate.setText(relativeTimeStamp.getRelativeTimeAgo());
-        tvFav.setText(timeLineModel.getFavCount());
-        tvRetweet.setText(timeLineModel.getReTweetCount());
+        tvFav.setText(timeLineModel.getFavCount().toString());
+        tvRetweet.setText(timeLineModel.getReTweetCount().toString());
 
         return convertView;
 
