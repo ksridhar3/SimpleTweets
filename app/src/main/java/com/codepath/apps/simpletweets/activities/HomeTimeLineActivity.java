@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.codepath.apps.simpletweets.R;
@@ -27,25 +28,44 @@ public class HomeTimeLineActivity extends AppCompatActivity {
     private TwitterClient twitterClient;
     private HomeTimeLineAdapter homeTimeLineAdapter;
     private String TAG = HomeTimeLineActivity.class.getSimpleName();
+    private Boolean loading = false;
+    private Long maxId = 0L;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Display the layout xml for this activity and the action bar
         setContentView(R.layout.activity_home_time_line);
-        homeTimeLineModelArrayList = new ArrayList<>();
-        lvHomeTimeLine = (ListView) findViewById(R.id.lv_home_time_line);
-        homeTimeLineAdapter = new HomeTimeLineAdapter(this,homeTimeLineModelArrayList);
-        lvHomeTimeLine.setAdapter(homeTimeLineAdapter);
-        twitterClient = new TwitterClient(this);
-        populateHomeTimeLine();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_white_twitter_bird);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+        homeTimeLineModelArrayList = new ArrayList<>();
+        twitterClient = new TwitterClient(this);
+        homeTimeLineAdapter = new HomeTimeLineAdapter(this,homeTimeLineModelArrayList);
+        lvHomeTimeLine = (ListView) findViewById(R.id.lv_home_time_line);
+        lvHomeTimeLine.setAdapter(homeTimeLineAdapter);
+        lvHomeTimeLine.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.d(TAG, "scrollState=" + scrollState);
+            }
 
-    }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.d(TAG, "firstVisibleItem=" + firstVisibleItem + " visibleItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount);
+                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+                    Log.d(TAG, " fetching again");
+                    populateHomeTimeLine();
+                }
+            }
+        });
+
+
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,8 +86,10 @@ public class HomeTimeLineActivity extends AppCompatActivity {
         }
     }
 
+
     private void populateHomeTimeLine() {
-        twitterClient.getHomeTimeLine(new JsonHttpResponseHandler() {
+        loading = true;
+        twitterClient.getHomeTimeLine(maxId,new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
@@ -101,17 +123,24 @@ public class HomeTimeLineActivity extends AppCompatActivity {
                         if(jsonObject.has("retweet_count")) {
                             homeTimeLineModel.setReTweetCount(jsonObject.getInt("retweet_count"));
                         }
-                        homeTimeLineModelArrayList.add(i,homeTimeLineModel);
+                        if(jsonObject.has("id")){
+                            maxId = jsonObject.getLong("id");
+                            homeTimeLineModel.setTweetId(maxId);
+                        }
+                        homeTimeLineModelArrayList.add(homeTimeLineModel);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 homeTimeLineAdapter.notifyDataSetChanged();
+                loading = false;
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d(TAG, "onFailure received");
+                loading = false;
             }
         });
     }

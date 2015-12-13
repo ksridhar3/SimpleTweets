@@ -14,6 +14,7 @@ public class HomeTimeLineModel {
     private Integer reTweetCount;
     private Integer favCount;
     private String createdAt;
+    private Long tweetId;
 
     public HomeTimeLineModel() {
         screenName = "";
@@ -55,6 +56,10 @@ public class HomeTimeLineModel {
         return createdAt;
     }
 
+    public Long getTweetId() {
+        return tweetId;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -85,5 +90,9 @@ public class HomeTimeLineModel {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void setTweetId(Long tweetId) {
+        this.tweetId = tweetId;
     }
 }
