@@ -5,6 +5,7 @@
         android:id="@+id/mi_compose"
         app:showAsAction="ifRoom|withText"
         android:title="Compose"
+        
         >
     </item>
 </menu>

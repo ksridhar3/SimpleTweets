@@ -1,7 +1,8 @@
 package com.codepath.apps.simpletweets.activities;
 
-import android.app.ActionBar;
+
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +45,7 @@ public class HomeTimeLineActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setLogo(R.mipmap.ic_white_twitter_bird);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.se
+
 
         homeTimeLineModelArrayList = new ArrayList<>();
         twitterClient = new TwitterClient(this);
