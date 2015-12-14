@@ -12,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.codepath.apps.simpletweets.R;
+import com.codepath.apps.simpletweets.models.UserProfile;
 import com.codepath.apps.simpletweets.network.TwitterClient;
 import com.codepath.apps.simpletweets.adapters.HomeTimeLineAdapter;
 import com.codepath.apps.simpletweets.models.HomeTimeLineModel;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class HomeTimeLineActivity extends AppCompatActivity {
 
     private ArrayList<HomeTimeLineModel> homeTimeLineModelArrayList;
+    private UserProfile userProfile;
     private ListView lvHomeTimeLine;
     private TwitterClient twitterClient;
     private HomeTimeLineAdapter homeTimeLineAdapter;
@@ -47,11 +49,14 @@ public class HomeTimeLineActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
 
 
+
         homeTimeLineModelArrayList = new ArrayList<>();
+        userProfile = new UserProfile();
         twitterClient = new TwitterClient(this);
         homeTimeLineAdapter = new HomeTimeLineAdapter(this,homeTimeLineModelArrayList);
         lvHomeTimeLine = (ListView) findViewById(R.id.lv_home_time_line);
         lvHomeTimeLine.setAdapter(homeTimeLineAdapter);
+        populateUserCredentials();
         lvHomeTimeLine.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -61,9 +66,12 @@ public class HomeTimeLineActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 Log.d(TAG, "firstVisibleItem=" + firstVisibleItem + " visibleItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount);
-                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
-                    Log.d(TAG, " fetching again");
-                    populateHomeTimeLine();
+                if (!loading) {
+                    if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+                        Log.d(TAG, " fetching again");
+                        loading = true;
+                        populateHomeTimeLine();
+                    }
                 }
             }
         });
@@ -82,6 +90,10 @@ public class HomeTimeLineActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.mi_compose:
                 Intent i = new Intent(this,ComposeTweetActivity.class);
+
+                i.putExtra("name",userProfile.getUserName());
+                i.putExtra("screen_name",userProfile.getScreenName());
+                i.putExtra("url",userProfile.getUserProfileUrl());
                 startActivity(i);
                 return true;
             default:
@@ -89,13 +101,35 @@ public class HomeTimeLineActivity extends AppCompatActivity {
         }
     }
 
+    private void populateUserCredentials() {
+        twitterClient.getUserCredentials(new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    if(response.has("name") && !response.isNull("name")) {
+                        userProfile.setUserName(response.getString("name"));
+                    }
+                    if(response.has("screen_name") && !response.isNull("screen_name")) {
+                        userProfile.setUserName(response.getString("name"));
+                    }
+                    if(response.has("profile_image_url") && !response.isNull("profile_image_url")) {
+                        userProfile.setUserProfileUrl(response.getString("profile_image_url"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
+            }
+        });
+    }
     private void populateHomeTimeLine() {
-        loading = true;
+
         twitterClient.getHomeTimeLine(maxId,new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
+                Log.d(TAG,"populateHomeTimeLine onSucess");
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         HomeTimeLineModel homeTimeLineModel = new HomeTimeLineModel();
@@ -112,15 +146,16 @@ public class HomeTimeLineActivity extends AppCompatActivity {
                             if(userJSONObj.has("profile_image_url") && !userJSONObj.isNull("profile_image_url")) {
                                 homeTimeLineModel.setUserProfileUrl(userJSONObj.getString("profile_image_url"));
                             }
-                            if(userJSONObj.has("created_at") && !userJSONObj.isNull("created_at")) {
-                                homeTimeLineModel.setCreatedAt(userJSONObj.getString("created_at"));
-                            }
+
                             if(userJSONObj.has("favourites_count")) {
                                 homeTimeLineModel.setFavCount(userJSONObj.getInt("favourites_count"));
                             }
                         }
                         if(jsonObject.has("text") && !jsonObject.isNull("text")){
                             homeTimeLineModel.setTwitterText(jsonObject.getString("text"));
+                        }
+                        if(jsonObject.has("created_at") && !jsonObject.isNull("created_at")) {
+                            homeTimeLineModel.setCreatedAt(jsonObject.getString("created_at"));
                         }
 
                         if(jsonObject.has("retweet_count")) {

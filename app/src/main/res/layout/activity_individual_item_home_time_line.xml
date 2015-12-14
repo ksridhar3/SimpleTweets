@@ -73,7 +73,7 @@
         android:layout_toRightOf="@id/iv_favourites"
         android:layout_alignTop="@id/tv_user_name"
         android:layout_alignBottom="@id/tv_user_name"
-        android:text="Dec 27 2011"
+
         />
 
 </RelativeLayout>
