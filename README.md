@@ -1,6 +1,6 @@
-# Assignment - Popular photos
+# Assignment - Simple Tweets
 
-Popular photos displays the popular photos from Instagram.
+Simple tweets shows the tweets and gives user a screen to post new tweets
 
 Submitted by: Sridhar Kocharlakota
 
@@ -10,27 +10,30 @@ Time spent: 24 hours spent in total
 
 The following **required** functionality is completed:
 
-* [O] User can see the popular photos , user name and caption.
+* [0] User can sign in to Twitter using OAuth login
+* [0] User can view the tweets from their home timeline
+* [0] User should be displayed the username, name, and body for each tweet
+* [0] User should be displayed the relative timestamp for each tweet "8m", "7h"
+* [0] User can view more tweets as they scroll with infinite pagination
+* [0] User can compose a new tweet
+* [0] User can click a “Compose” icon in the Action Bar on the top right
+* [0] User can then enter a new tweet and post this to twitter
+* [ ] User is taken back to home timeline with new tweet visible in timeline
 
 The following **optional** features are implemented:
 
-* [O] Like count and user profile image is displayed.
-* [ ] Relative time stamp display.
+* [ ] While composing a tweet, user can see a character counter with characters remaining for tweet out of 140
+* [ ] Links in tweets are clickable and will launch the web browser (see autolink)
+* [ ] User can refresh tweets timeline by pulling down to refresh (i.e pull-to-refresh)
+* [ ] User can open the twitter app offline and see last loaded tweets
+* [ ] Tweets are persisted into sqlite and can be displayed from the local DB
+* [ ] User can tap a tweet to display a "detailed" view of that tweet
+* [ ] User can select "reply" from detail view to respond to a tweet
+* [0 ]Improve the user interface and theme the app to feel "twitter branded"
+* [ ] User can see embedded image media within the tweet detail view
+* [ ] Compose activity is replaced with a modal overlay
 
 The following **advanced** features are implemented:
-
-* [O] Picaso place holder till the image is loaded. Picaso error image loader in case the image is not fetched.
-
-* [O] User profile image is displayed using a round image view.
-
-* [ ] Improve the user interface using styling and coloring.
-
-* [ ] Show latest comment for each photo.
-
-* [ ] Add pull to refresh for popular stream with SwipeRefreshLayout
-
-
-
 
 ## Video Walkthrough 
 
