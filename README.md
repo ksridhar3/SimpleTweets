@@ -29,7 +29,7 @@ The following **optional** features are implemented:
 * [ ] Tweets are persisted into sqlite and can be displayed from the local DB
 * [ ] User can tap a tweet to display a "detailed" view of that tweet
 * [ ] User can select "reply" from detail view to respond to a tweet
-* [0 ]Improve the user interface and theme the app to feel "twitter branded"
+* [0]Improve the user interface and theme the app to feel "twitter branded"
 * [ ] User can see embedded image media within the tweet detail view
 * [ ] Compose activity is replaced with a modal overlay
 
@@ -39,7 +39,7 @@ The following **advanced** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/ksridhar3/PopularPhotos/blob/master/instagram.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/ksridhar3/SimpleTweets/blob/master/simpletweets.gif' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
