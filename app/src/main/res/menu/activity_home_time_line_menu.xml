@@ -5,7 +5,13 @@
         android:id="@+id/mi_compose"
         app:showAsAction="ifRoom|withText"
         android:title="Compose"
-        
         >
     </item>
+    <item
+        android:id="@+id/mi_profile"
+        app:showAsAction="ifRoom|withText"
+        android:title="Profile"
+        >
+    </item>
+
 </menu>

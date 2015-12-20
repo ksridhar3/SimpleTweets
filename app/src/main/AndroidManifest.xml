@@ -51,7 +51,12 @@
         <activity
             android:name=".activities.ComposeTweetActivity"
             android:label="" />
-        <activity android:name=".activities.ProfileViewActivity"></activity>
+        <activity
+            android:name=".activities.ProfileViewActivity"
+            android:label=""/>
+
+
+
     </application>
 
 </manifest>

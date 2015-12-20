@@ -68,9 +68,10 @@
         android:text="@string/FOLLOWERS"
         android:layout_alignTop="@id/tv_profile_following_txt"
         android:layout_toRightOf="@id/tv_profile_following_txt"/>
-    <fragment
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_profile_tweets_txt"
-        android:name="com.codepath.apps.simpletweets.fragments.TweetsListFragment" />
+        android:id="@+id/fl_profile_fragment"
+        />
 </RelativeLayout>

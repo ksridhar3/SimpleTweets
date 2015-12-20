@@ -71,6 +71,13 @@ public class HomeTimeLineActivity extends AppCompatActivity {
                 i.putExtra("url",userProfile.getUserProfileUrl());
                 startActivity(i);
                 return true;
+            case R.id.mi_profile:
+                Intent p = new Intent(this,ProfileViewActivity.class);
+
+                p.putExtra("screen_name",userProfile.getScreenName());
+                startActivity(p);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
