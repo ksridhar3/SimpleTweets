@@ -1,14 +1,10 @@
 package com.codepath.apps.simpletweets.models;
 
-import android.util.Log;
-
-import org.json.JSONObject;
-
 /**
  * Created by k.sridhar on 12/11/2015.
  */
-public class HomeTimeLineModel {
-    private static final String TAG=HomeTimeLineModel.class.getSimpleName();
+public class TweetModel {
+    private static final String TAG=TweetModel.class.getSimpleName();
     private String screenName;
     private String userName;
     private String userProfileUrl;
@@ -22,7 +18,7 @@ public class HomeTimeLineModel {
     private String myUserProfileUrl;
 
 
-    public HomeTimeLineModel() {
+    public TweetModel() {
         screenName = "";
         userName = "";
         userProfileUrl = "";
@@ -86,7 +82,7 @@ public class HomeTimeLineModel {
     public void setTwitterText(String twitterText) {
 
         this.twitterText = twitterText;
-        Log.d(TAG,"setCreatedAt:"+createdAt+" tweet:"+this.twitterText);
+
     }
 
     public void setReTweetCount(Integer reTweetCount) {

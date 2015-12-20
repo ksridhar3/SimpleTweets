@@ -9,26 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.simpletweets.R;
-import com.codepath.apps.simpletweets.models.HomeTimeLineModel;
+import com.codepath.apps.simpletweets.models.TweetModel;
 import com.codepath.apps.simpletweets.utils.RelativeTimeStamp;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * Created by k.sridhar on 12/11/2015.
  */
-public class HomeTimeLineAdapter extends ArrayAdapter<HomeTimeLineModel>{
-    public HomeTimeLineAdapter(Context context,ArrayList<HomeTimeLineModel> tweets) {
+public class TweetsAdapter extends ArrayAdapter<TweetModel>{
+    public TweetsAdapter(Context context, ArrayList<TweetModel> tweets) {
         super(context,0,tweets);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        HomeTimeLineModel timeLineModel=getItem(position);
+        TweetModel timeLineModel=getItem(position);
         RelativeTimeStamp relativeTimeStamp =new RelativeTimeStamp(timeLineModel.getCreatedAt());
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_individual_item_home_time_line,parent,false);

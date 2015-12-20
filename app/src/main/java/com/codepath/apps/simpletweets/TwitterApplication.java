@@ -2,6 +2,7 @@ package com.codepath.apps.simpletweets;
 
 import android.content.Context;
 
+import com.codepath.apps.simpletweets.models.UserProfile;
 import com.codepath.apps.simpletweets.network.TwitterClient;
 
 /*
@@ -25,4 +26,6 @@ public class TwitterApplication extends com.activeandroid.app.Application {
 	public static TwitterClient getRestClient() {
 		return (TwitterClient) TwitterClient.getInstance(TwitterClient.class, TwitterApplication.context);
 	}
+
+
 }
