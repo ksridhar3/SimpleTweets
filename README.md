@@ -39,6 +39,8 @@ The following **advanced** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+<img src= 'https://github.com/ksridhar3/SimpleTweets/blob/master/simpletweets_fragments.gif' alt='Video Walkthrough' />
+
 <img src='https://github.com/ksridhar3/SimpleTweets/blob/master/simpletweets.gif' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
