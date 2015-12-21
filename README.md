@@ -19,6 +19,11 @@ The following **required** functionality is completed:
 * [0] User can click a “Compose” icon in the Action Bar on the top right
 * [0] User can then enter a new tweet and post this to twitter
 * [ ] User is taken back to home timeline with new tweet visible in timeline
+* [0] User can switch between Timeline and Mention views using tabs.
+* [0] User can navigate to view their own profile
+* [0] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
+* [0] User can click on the profile image in any tweet to see another user's profile.
+* [0] Profile view should include that user's timeline
 
 The following **optional** features are implemented:
 
