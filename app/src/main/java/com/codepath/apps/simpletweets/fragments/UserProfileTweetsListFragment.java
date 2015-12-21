@@ -23,7 +23,7 @@ public class UserProfileTweetsListFragment extends TweetsListFragment {
     private ListView lvHomeTimeLine;
     private String TAG = UserProfileTweetsListFragment.class.getSimpleName();
     private Boolean loading = false;
-    private Long maxId = 0L;
+    private long maxId = 0L;
     private TwitterClient twitterClient;
     private TweetsAdapter homeTimeLineAdapter;
     private String screenName;
@@ -59,11 +59,14 @@ public class UserProfileTweetsListFragment extends TweetsListFragment {
         homeTimeLineAdapter = super.getAdapter();
         screenName= getArguments().getString("screenName");
         UserProfile curLoggedInUser = TwitterApplication.getLoggedInUserProfile();
-        if(curLoggedInUser.getScreenName() != screenName)
-            populateUserTweetTimeline();
-        else
-            populateLoggedInUserProfile();
+        if (!loading) {
+            loading = true;
+            if (curLoggedInUser.getScreenName() != screenName)
+                populateUserTweetTimeline();
+            else
+                populateLoggedInUserProfile();
 
+        }
     }
 
     private void populateLoggedInUserProfile() {
@@ -76,7 +79,7 @@ public class UserProfileTweetsListFragment extends TweetsListFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d(TAG, "populateHomeTimeLine onSucess");
+                Log.d(TAG, "populateUserTweetTimeline onSucess response.length:"+response.length());
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         TweetModel homeTimeLineModel = new TweetModel();
@@ -126,7 +129,7 @@ public class UserProfileTweetsListFragment extends TweetsListFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d(TAG, "onFailure received");
+                Log.d(TAG, "UserProfileTweetsListFragment onFailure received");
                 loading = false;
             }
         });

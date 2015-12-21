@@ -59,7 +59,7 @@ public abstract class TweetsListFragment extends Fragment {
         lvHomeTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG,"onItemClick position:"+position+" item:"+tweetsAdapter.getItem(position).getScreenName() );
+                //Log.d(TAG,"onItemClick position:"+position+" item:"+tweetsAdapter.getItem(position).getScreenName() );
                 Intent newIntent = new Intent(getActivity(),ProfileViewActivity.class );
                 newIntent.putExtra("screen_name",tweetsAdapter.getItem(position).getScreenName());
                 startActivity(newIntent);

@@ -17,15 +17,6 @@ public class UserProfile {
         this.userProfileUrl = "";
     }
 
-    public void reset() {
-        this.userName = "";
-        this.screenName = "";
-        this.userProfileUrl = "";
-        this.followersCnt = 0;
-        this.followingCnt = 0;
-        this.tweetCnt = 0;
-    }
-
     public String getScreenName() {
         return screenName;
     }

@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
+/*
  * Created by k.sridhar on 12/19/2015.
  */
 public class HomeLineFragment extends TweetsListFragment {
@@ -28,13 +28,13 @@ public class HomeLineFragment extends TweetsListFragment {
     private ListView lvHomeTimeLine;
     private String TAG = HomeLineFragment.class.getSimpleName();
     private Boolean loading = false;
-    private Long maxId = 0L;
+    private long maxId = 0L;
     private TwitterClient twitterClient;
     private TweetsAdapter homeTimeLineAdapter;
 
     @Override
     public void onScrollImpl(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        Log.d(TAG, "firstVisibleItem=" + firstVisibleItem + " visibleItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount);
+        //Log.d(TAG, "firstVisibleItem=" + firstVisibleItem + " visibleItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount);
         if (!loading) {
             if (firstVisibleItem + visibleItemCount >= totalItemCount) {
                 Log.d(TAG, " fetching again");
@@ -49,7 +49,10 @@ public class HomeLineFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
         twitterClient = TwitterApplication.getRestClient();
         homeTimeLineAdapter = super.getAdapter();
-        populateHomeTimeLine();
+        if (!loading) {
+            loading = true;
+            populateHomeTimeLine();
+        }
     }
 
     private void populateHomeTimeLine() {
@@ -58,7 +61,7 @@ public class HomeLineFragment extends TweetsListFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d(TAG, "populateHomeTimeLine onSucess");
+
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         TweetModel homeTimeLineModel = new TweetModel();
@@ -68,7 +71,7 @@ public class HomeLineFragment extends TweetsListFragment {
 
                             if (userJSONObj.has("screen_name") && !userJSONObj.isNull("screen_name")) {
                                 homeTimeLineModel.setScreenName(userJSONObj.getString("screen_name"));
-                                Log.d(TAG, "onSuccess screen name:" + homeTimeLineModel.getScreenName());
+
                             }
                             if (userJSONObj.has("name") && !userJSONObj.isNull("name")) {
                                 homeTimeLineModel.setUserName(userJSONObj.getString("name"));
@@ -108,7 +111,7 @@ public class HomeLineFragment extends TweetsListFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d(TAG, "onFailure received");
+                Log.d(TAG, "HomeLineFragment onFailure received");
                 loading = false;
             }
         });

@@ -35,38 +35,38 @@ public class TwitterClient extends OAuthBaseClient {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
 	}
 
-	public void getHomeTimeLine(Long maxId,AsyncHttpResponseHandler handler) {
+	public void getHomeTimeLine(long maxId,AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
 		Log.d(TAG,"getHomeTimeLine entered");
-		if(maxId.longValue() != 0) {
-			params.put("max_id", maxId);
+		if(maxId != 0) {
+			params.put("max_id", maxId-1);
 		}
 		params.put("count",25);
 		params.put("since_id",1);
 		getClient().get(apiUrl, params, handler);
 	}
 
-	public void getMentionsTimeLine(Long maxId,AsyncHttpResponseHandler handler) {
+	public void getMentionsTimeLine(long maxId,AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
-		Log.d(TAG,"getHomeTimeLine entered");
-		if(maxId.longValue() != 0) {
-			params.put("max_id", maxId);
+		Log.d(TAG,"getMentionsTimeLine entered maxID:"+maxId);
+		if(maxId != 0) {
+			params.put("max_id", maxId-1);
 		}
 		params.put("count",25);
 		params.put("since_id",1);
 		getClient().get(apiUrl, params, handler);
 	}
-	public void getUserTweetTimeLine(Long maxId,String screenName,AsyncHttpResponseHandler handler) {
+	public void getUserTweetTimeLine(long maxId,String screenName,AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/user_timeline.json");
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
-		Log.d(TAG, "getHomeTimeLine entered");
-		if(maxId.longValue() != 0) {
-			params.put("max_id", maxId);
+		Log.d(TAG, "getUserTweetTimeLine entered maxId:"+maxId);
+		if(maxId != 0) {
+			params.put("max_id", maxId-1);
 		}
 		params.put("count",25);
 		params.put("since_id",1);

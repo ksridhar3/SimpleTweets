@@ -22,7 +22,7 @@ import org.json.JSONObject;
 public class MentionsFragment extends TweetsListFragment {
 
     private TwitterClient twitterClient;
-    private Long maxId = 0L;
+    private long maxId = 0L;
     private static final String TAG = MentionsFragment.class.getSimpleName();
     private static boolean loading = false;
     private TweetsAdapter mentionsAdapter;
@@ -32,12 +32,15 @@ public class MentionsFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
         twitterClient = TwitterApplication.getRestClient(); //singleton client
         mentionsAdapter = super.getAdapter();
-        populateMentionsTimeLine();
+        if (!loading) {
+            loading = true;
+            populateMentionsTimeLine();
+        }
     }
 
     @Override
    public   void onScrollImpl(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        Log.d(TAG, "firstVisibleItem=" + firstVisibleItem + " visibleItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount);
+        //Log.d(TAG, "firstVisibleItem=" + firstVisibleItem + " visibleItemCount=" + visibleItemCount + " totalItemCount=" + totalItemCount);
         if (!loading) {
             if (firstVisibleItem + visibleItemCount >= totalItemCount) {
                 Log.d(TAG, " fetching again");
@@ -50,12 +53,13 @@ public class MentionsFragment extends TweetsListFragment {
 
     private void populateMentionsTimeLine() {
 
+        Log.d(TAG,"populateMentionsTimeLine maxId="+maxId+" mentionsAdapter size:"+mentionsAdapter.getCount());
         twitterClient.getMentionsTimeLine(maxId, new JsonHttpResponseHandler() {
             @Override
 
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d(TAG, "populateHomeTimeLine onSucess");
+                Log.d(TAG, "populateMentionsTimeLine onSucess response length:"+response.length());
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         TweetModel homeTimeLineModel = new TweetModel();
@@ -103,7 +107,7 @@ public class MentionsFragment extends TweetsListFragment {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d(TAG, "onFailure received");
+                Log.d(TAG, "populateMentionsTimeLine onFailure received");
                 loading = false;
             }
         });
