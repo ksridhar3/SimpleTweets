@@ -9,6 +9,11 @@
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="true"
         android:layout_width="match_parent"
+        android:textSize="14sp"
+        android:textColor="@color/twitter_blue"
+        app:pstsDividerColor="@color/twitter_blue"
+        app:pstsIndicatorColor="@color/twitter_blue"
+        app:pstsUnderlineColor="@color/twitter_blue"
         android:layout_height="48dip" />
 
    <android.support.v4.view.ViewPager

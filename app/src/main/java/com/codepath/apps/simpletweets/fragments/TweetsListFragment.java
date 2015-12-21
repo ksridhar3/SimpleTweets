@@ -1,16 +1,20 @@
 package com.codepath.apps.simpletweets.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.codepath.apps.simpletweets.R;
 import com.codepath.apps.simpletweets.TwitterApplication;
+import com.codepath.apps.simpletweets.activities.ProfileViewActivity;
 import com.codepath.apps.simpletweets.adapters.TweetsAdapter;
 import com.codepath.apps.simpletweets.models.TweetModel;
 import com.codepath.apps.simpletweets.models.UserProfile;
@@ -48,7 +52,17 @@ public abstract class TweetsListFragment extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                    onScrollImpl(view, firstVisibleItem, visibleItemCount, totalItemCount);
+                onScrollImpl(view, firstVisibleItem, visibleItemCount, totalItemCount);
+            }
+        });
+
+        lvHomeTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG,"onItemClick position:"+position+" item:"+tweetsAdapter.getItem(position).getScreenName() );
+                Intent newIntent = new Intent(getActivity(),ProfileViewActivity.class );
+                newIntent.putExtra("screen_name",tweetsAdapter.getItem(position).getScreenName());
+                startActivity(newIntent);
             }
         });
          return v;

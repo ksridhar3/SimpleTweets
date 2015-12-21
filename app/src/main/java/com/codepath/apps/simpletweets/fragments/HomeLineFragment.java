@@ -56,7 +56,6 @@ public class HomeLineFragment extends TweetsListFragment {
 
         twitterClient.getHomeTimeLine(maxId, new JsonHttpResponseHandler() {
             @Override
-
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.d(TAG, "populateHomeTimeLine onSucess");

@@ -7,11 +7,23 @@ public class UserProfile {
     private String userName;
     private String screenName;
     private String userProfileUrl;
+    private int followersCnt;
+    private int followingCnt;
+    private int tweetCnt;
 
     public UserProfile() {
         this.userName = "";
         this.screenName = "";
         this.userProfileUrl = "";
+    }
+
+    public void reset() {
+        this.userName = "";
+        this.screenName = "";
+        this.userProfileUrl = "";
+        this.followersCnt = 0;
+        this.followingCnt = 0;
+        this.tweetCnt = 0;
     }
 
     public String getScreenName() {
@@ -26,6 +38,12 @@ public class UserProfile {
         return userName;
     }
 
+    public int getFollowersCnt() { return followersCnt;}
+
+    public int getFollowingCnt() { return followingCnt;}
+
+    public int getTweetCnt() { return tweetCnt;}
+
     public void setScreenName(String screenName) {
         this.screenName = screenName;
     }
@@ -37,4 +55,10 @@ public class UserProfile {
     public void setUserProfileUrl(String userProfileUrl) {
         this.userProfileUrl = userProfileUrl;
     }
+
+    public void setFollowersCnt(int followersCnt) { this.followersCnt = followersCnt;}
+
+    public void setFollowingCnt(int followingCnt) { this.followingCnt = followingCnt;}
+
+    public void setTweetCnt(int tweetCnt) { this.tweetCnt = tweetCnt;}
 }

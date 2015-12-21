@@ -1,6 +1,5 @@
 package com.codepath.apps.simpletweets.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AbsListView;
@@ -9,6 +8,7 @@ import android.widget.ListView;
 import com.codepath.apps.simpletweets.TwitterApplication;
 import com.codepath.apps.simpletweets.adapters.TweetsAdapter;
 import com.codepath.apps.simpletweets.models.TweetModel;
+import com.codepath.apps.simpletweets.models.UserProfile;
 import com.codepath.apps.simpletweets.network.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -19,22 +19,22 @@ import org.json.JSONObject;
 /**
  * Created by k.sridhar on 12/19/2015.
  */
-public class UserProfileViewFragment extends TweetsListFragment {
+public class UserProfileTweetsListFragment extends TweetsListFragment {
     private ListView lvHomeTimeLine;
-    private String TAG = UserProfileViewFragment.class.getSimpleName();
+    private String TAG = UserProfileTweetsListFragment.class.getSimpleName();
     private Boolean loading = false;
     private Long maxId = 0L;
     private TwitterClient twitterClient;
     private TweetsAdapter homeTimeLineAdapter;
     private String screenName;
 
-    public static UserProfileViewFragment newInstance(String screenName) {
-        UserProfileViewFragment userProfileViewFragment = new UserProfileViewFragment();
+    public static UserProfileTweetsListFragment newInstance(String screenName) {
+        UserProfileTweetsListFragment userProfileTweetsListFragment = new UserProfileTweetsListFragment();
         Bundle args = new Bundle();
 
         args.putString("screenName",screenName);
-        userProfileViewFragment.setArguments(args);
-        return userProfileViewFragment;
+        userProfileTweetsListFragment.setArguments(args);
+        return userProfileTweetsListFragment;
     }
 
     @Override
@@ -58,14 +58,22 @@ public class UserProfileViewFragment extends TweetsListFragment {
         twitterClient = TwitterApplication.getRestClient();
         homeTimeLineAdapter = super.getAdapter();
         screenName= getArguments().getString("screenName");
-        populateUserTweetTimeline();
+        UserProfile curLoggedInUser = TwitterApplication.getLoggedInUserProfile();
+        if(curLoggedInUser.getScreenName() != screenName)
+            populateUserTweetTimeline();
+        else
+            populateLoggedInUserProfile();
+
+    }
+
+    private void populateLoggedInUserProfile() {
+
     }
 
     private void populateUserTweetTimeline() {
 
         twitterClient.getUserTweetTimeLine(maxId,screenName, new JsonHttpResponseHandler() {
             @Override
-
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.d(TAG, "populateHomeTimeLine onSucess");

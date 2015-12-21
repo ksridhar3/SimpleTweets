@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:id="@+id/iv_profile_view"
         android:src="@drawable/placeholder"/>
     <TextView
@@ -16,62 +18,47 @@
         android:layout_toRightOf="@id/iv_profile_view"
         android:paddingTop="20dp"
         android:text="username"/>
-    <TextView
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_profile_tweet_cnt"
+        android:orientation="horizontal"
+        android:id="@+id/layout_profile_detail"
+        android:layout_below="@id/iv_profile_view"
         android:paddingTop="20dp"
-        android:paddingLeft="10dp"
-        android:text="tweet count"
-        android:layout_below="@id/iv_profile_view"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_profile_tweets_txt"
-        android:paddingTop="20dp"
-        android:paddingLeft="10dp"
-        android:text="@string/TWEETS"
-        android:layout_below="@id/tv_profile_tweet_cnt"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_profile_following_cnt"
-        android:paddingTop="20dp"
-        android:paddingLeft="40dp"
-        android:text="following count"
-        android:layout_alignTop="@id/tv_profile_tweet_cnt"
-        android:layout_toRightOf="@id/tv_profile_tweet_cnt"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_profile_following_txt"
-        android:paddingTop="20dp"
-        android:paddingLeft="60dp"
-        android:text="@string/FOLLOWING"
-        android:layout_alignTop="@id/tv_profile_tweets_txt"
-        android:layout_toRightOf="@id/tv_profile_tweets_txt"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_profile_followers_cnt"
-        android:paddingTop="20dp"
-        android:paddingLeft="50dp"
-        android:text="followers count"
-        android:layout_alignTop="@id/tv_profile_following_cnt"
-        android:layout_toRightOf="@id/tv_profile_following_cnt"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_profile_followers_txt"
-        android:paddingTop="20dp"
-        android:paddingLeft="70dp"
-        android:text="@string/FOLLOWERS"
-        android:layout_alignTop="@id/tv_profile_following_txt"
-        android:layout_toRightOf="@id/tv_profile_following_txt"/>
-    <FrameLayout
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_tweets_txt"
+            android:paddingLeft="10dp"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_following_txt"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_profile_followers_txt"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#e1e8ed"
+        android:id="@+id/divider"
+        android:layout_below="@id/layout_profile_detail"/>
+   <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tv_profile_tweets_txt"
+        android:paddingTop="10dp"
+        android:layout_below="@id/divider"
         android:id="@+id/fl_profile_fragment"
         />
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.codepath.apps.simpletweets.R;
+import com.codepath.apps.simpletweets.TwitterApplication;
 import com.codepath.apps.simpletweets.network.TwitterClient;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
@@ -15,7 +16,6 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
 	}
 
 
@@ -30,6 +30,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
+		TwitterApplication.populateUserCredentials(); //after successful login populate the logged in user's profile info.
 		 Intent i = new Intent(this, HomeTimeLineActivity.class);
 		 startActivity(i);
 	}

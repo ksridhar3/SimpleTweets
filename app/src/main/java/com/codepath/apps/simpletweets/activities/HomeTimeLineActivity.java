@@ -28,8 +28,6 @@ public class HomeTimeLineActivity extends AppCompatActivity {
 
 
     private String TAG = HomeTimeLineActivity.class.getSimpleName();
-    private UserProfile userProfile = new UserProfile();
-    private TwitterClient twitterClient;
     private ViewPager vPager;
 
 
@@ -43,8 +41,6 @@ public class HomeTimeLineActivity extends AppCompatActivity {
        actionBar.setDisplayShowHomeEnabled(true);
        actionBar.setLogo(R.mipmap.ic_white_twitter_bird);
        actionBar.setDisplayUseLogoEnabled(true);
-       populateUserCredentials();
-
 
        vPager = (ViewPager)findViewById(R.id.viewpager);
        vPager.setAdapter(new TweetsPageAdapter(getSupportFragmentManager()));
@@ -61,49 +57,25 @@ public class HomeTimeLineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        UserProfile curUserProfile = TwitterApplication.getLoggedInUserProfile();
 
         switch (item.getItemId()) {
             case R.id.mi_compose:
                 Intent i = new Intent(this,ComposeTweetActivity.class);
-
-                i.putExtra("name",userProfile.getUserName());
-                i.putExtra("screen_name",userProfile.getScreenName());
-                i.putExtra("url",userProfile.getUserProfileUrl());
+                i.putExtra("name",curUserProfile.getUserName());
+                i.putExtra("screen_name",curUserProfile.getScreenName());
+                i.putExtra("url",curUserProfile.getUserProfileUrl());
                 startActivity(i);
                 return true;
             case R.id.mi_profile:
                 Intent p = new Intent(this,ProfileViewActivity.class);
-
-                p.putExtra("screen_name",userProfile.getScreenName());
+                p.putExtra("screen_name",curUserProfile.getScreenName());
                 startActivity(p);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    private void populateUserCredentials() {
-        twitterClient = TwitterApplication.getRestClient();
-        twitterClient.getUserCredentials(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    if (response.has("name") && !response.isNull("name")) {
-                        userProfile.setUserName(response.getString("name"));
-                    }
-                    if (response.has("screen_name") && !response.isNull("screen_name")) {
-                        userProfile.setUserName(response.getString("name"));
-                    }
-                    if (response.has("profile_image_url") && !response.isNull("profile_image_url")) {
-                        userProfile.setUserProfileUrl(response.getString("profile_image_url"));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
     }
 
     public class TweetsPageAdapter extends FragmentPagerAdapter {
